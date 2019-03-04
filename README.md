@@ -3,4 +3,5 @@
 
 Course Name: Data Structures and Performance
 
-Descriptions: Online course that was offer from University of San Diego thorugh coursera. 
+Descriptions: Online course offered by University of San Diego through Coursera.
+![alt tag](TextEditor_pic.jpg)
