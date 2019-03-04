@@ -20,16 +20,28 @@ If you are doing the course and want to use this as a reference, and if you like
             aaaaaaa  aaaaaaa
              aaaaaaaaaaaaaa
              ..............
+             
 ..a.........aaaaaaaaaaaaaaaa
+
 .aaa.......aaaaaaaaaaaaaaaaaa
+
 .aaa......aaaaaaaaaaaaaaaaaaaa
+
 .aaa.....aaaaaaaaaaaaaaaaaaaaaa
+
 .aaa....aaaaaaaaaaaaaaaaaaaaaaaa
+
+
 ..aaa...aaaaaaaaaaaaaaaaaaaaaaaa
+
 ..aaa...aaaaaaaaaaaaaaaaaaaaaaaa
+
 ..aaa....aaaaaaaaaaaaaaaaaaaaaa
+
 ...aaa....aaaaaaaaaaaaaaaaaaaa
+
 ....aaaaaaaaaaaaaaaaaaaaaaaaaa
+
 .....aaaaaaaaaaaaaaaaaaaaaaaaa
      
 The course compresses in a refresh of Strings methods, some efficiency Analysis and Benchmarking (BigO), Interfaces, Linked Lists vs. Arrays, and Markov Text Generator, Trees (including Binary Search Trees and Tries for simple autocomplete and spelling) and Hash Maps and Distance of words space.
