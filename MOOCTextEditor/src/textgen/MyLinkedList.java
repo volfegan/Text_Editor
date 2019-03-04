@@ -5,7 +5,7 @@ import java.util.Objects;
 
 
 /** A class that implements a doubly linked list
- * 
+ *
  * @author UC San Diego Intermediate Programming MOOC team
  *
  * @param <E> The type of the elements stored in the list
@@ -19,13 +19,17 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public MyLinkedList() {
 		// create nodes
 		head = new LLNode<E>(null);
-		tail = new LLNode<E>(null);
-		// create pointers
-		head.next = tail;
-		tail.prev = head;
-		
+		tail = new LLNode<E>(null, head);
+		/*
+		The tail node will be constructed with all the next, prev pointers and also update the head.next
+		and should result as bellow
+		*/
+		//tail = new LLNode<E>(null);
+		//head.next = tail;
+		//tail.prev = head;
+
 		size = 0;
-		
+
 	}
 
 	/**
@@ -33,35 +37,25 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @param element The element to add
 	 */
 	public boolean add(E element) {
-		Objects.requireNonNull(element);
-		if (size == Integer.MAX_VALUE) {
-			return false;
-		}
-
-		LLNode<E> newNode = new LLNode<E>(element, tail.prev, tail);
-		tail.prev.next = newNode;
-		tail.prev = newNode;
-		++size;
-
+		this.add(this.size(), element);
 		return true;
 	}
 
 	/**
 	 * Get the element at position index
-	 * 
+	 *
 	 * @throws IndexOutOfBoundsException
 	 *             if the index is out of bounds.
 	 */
 	public E get(int index) {
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException("MyLinkedList get => Index = "+index+" is invalid. List size = "+size);
+		}
 		return getNthNode(index).data;
 	}
 
+        // This will get the tail node (ex.: empty list), so the bounds need to be checked outside of this method.
 	private LLNode<E> getNthNode(int index) {
-
-		if (index < 0 || index >= size) {
-			throw new IndexOutOfBoundsException();
-		}
-
 		LLNode<E> node = head.next;
 		while (--index >= 0) {
 			node = node.next;
@@ -72,22 +66,19 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 	/**
 	 * Add an element to the list at the specified index
-	 * 
-	 * @param The
-	 *            index where the element should be added
+	 *
+	 * @param index where the element should be added
 	 * @param element
 	 *            The element to add
 	 */
 	public void add(int index, E element) {
 		Objects.requireNonNull(element);
-		if (index == size) {
-			this.add(element);
-			return;
+
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException("MyLinkedList add => Index = "+index+" is invalid. List size = "+size);
 		}
 		LLNode<E> nthNode = getNthNode(index);
-		LLNode<E> theNew = new LLNode<E>(element, nthNode.prev, nthNode);
-		nthNode.prev.next = theNew;
-		nthNode.prev = theNew;
+		new LLNode<E>(element, nthNode.prev);
 		++size;
 	}
 
@@ -98,15 +89,19 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 	/**
 	 * Remove a node at the specified index and return its data element.
-	 * 
+	 *
 	 * @param index
 	 *            The index of the element to remove
 	 * @return The data element removed
 	 * @throws IndexOutOfBoundsException
 	 *             If index is outside the bounds of the list
-	 * 
+	 *
 	 */
 	public E remove(int index) {
+
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException("MyLinkedList remove => Index = "+index+" is invalid. List size = "+size);
+		}
 		LLNode<E> nthNode = getNthNode(index);
 		nthNode.next.prev = nthNode.prev;
 		nthNode.prev.next = nthNode.next;
@@ -116,7 +111,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 	/**
 	 * Set an index position in the list to a new element
-	 * 
+	 *
 	 * @param index
 	 *            The index of the element to change
 	 * @param element
@@ -127,6 +122,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 */
 	public E set(int index, E element) {
 		Objects.requireNonNull(element);
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException("MyLinkedList set => Index = "+index+" is invalid. List size = "+size);
+		}
 		LLNode<E> nthNode = getNthNode(index);
 		E previousValue = nthNode.data;
 		nthNode.data = element;
@@ -137,7 +135,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public String toString() {
 		StringBuilder stringRepresentation = new StringBuilder();
 		stringRepresentation.append("[");
-		
+
 		int index = 0;
 
 		for (E element : this) {
@@ -152,6 +150,25 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 		return stringRepresentation.toString();
 	}
+
+	//simple test to see if linked list constructor works
+	public static void main(String[] args) {
+		MyLinkedList list = new MyLinkedList<Integer>();
+		list.add(65);
+		list.add(21);
+		list.add(42);
+		System.out.println(list.toString());
+
+		System.out.println("Sentinel head of list (list.getNode(0).prev) = " + list.getNthNode(0).prev); //must be null
+		System.out.println("Sentinel tail of list (list.getNode(2).next) = " + list.getNthNode(2).next); //must be null
+		System.out.println("Node = 21 prev (list.getNode(1).prev) = " + list.getNthNode(1).prev);
+		System.out.println("Node = 21 next (list.getNode(1).next) = " + list.getNthNode(1).next);
+
+		MyLinkedList emptyList = new MyLinkedList<Integer>();
+		System.out.println(emptyList.toString());
+		System.out.println("Sentinal head of list (list.getNode(0).prev) = " + list.getNthNode(0).prev); //must be null
+		System.out.println("Sentinal tail of list (list.getNode(0).next) = " + list.getNthNode(2).next); //must be null
+	}
 }
 
 class LLNode<E> {
@@ -165,10 +182,23 @@ class LLNode<E> {
 		this.next = null;
 	}
 
-	public LLNode(E e, LLNode<E> prev, LLNode<E> next) {
+	public LLNode(E e, LLNode<E> prevNode) {
 		this.data = e;
-		this.prev = prev;
-		this.next = next;
+		//if the previous node is not head sentinel create pointers, else they will be automatically null
+		if (prevNode != null) {
+			this.next = prevNode.next;
+			//if the next node is not tail sentinel, point the nextNode.prev to this current node
+			if (this.next != null) {
+				(this.next).prev = this;
+			}
+			prevNode.next = this;
+			this.prev = prevNode;
+		}
+	}
+
+	public String toString() {
+		if (data == null) return "null";
+		return this.data.toString();
 	}
 
 }
