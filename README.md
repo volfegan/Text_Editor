@@ -10,10 +10,10 @@ Descriptions: Online course offered by University of San Diego through Coursera.
 I learned a bit about JAVA. The course pushes Eclipse IDE, but I used IntelliJ IDEA, so my folder structure might be a bit different from the standard.
 If you are doing the course and want to use this as a reference, and if you like my code and you use it for your benefit, please be kind and upvote. It seems nowadays people like upvotes more than anything. If you like JAVA, you are already a better person than me. I tried to do all the optional assignments.
 
- |\_/|     
+ |\\_/|     
  (. .)
-  =w= (\   
- / ^ \//   
+  =w= (\\   
+ / ^ \\//   
 (|| ||)
 ,""_""_ .
 
