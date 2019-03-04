@@ -1,19 +1,18 @@
 package document;
 
+import java.util.Arrays;
 import java.util.List;
 
 /** 
  * A naive implementation of the Document abstract class. 
  * @author UC San Diego Intermediate Programming MOOC team
  */
-public class BasicDocument extends Document 
-{
+public class BasicDocument extends Document {
 	/** Create a new BasicDocument object
 	 * 
 	 * @param text The full text of the Document.
 	 */
-	public BasicDocument(String text)
-	{
+	public BasicDocument(String text) {
 		super(text);
 	}
 	
@@ -32,11 +31,10 @@ public class BasicDocument extends Document
 	 * @return The number of words in the document.
 	 */
 	@Override
-	public int getNumWords()
-	{
-		
-	    List<String> tokens = getTokens("[a-zA-z]+");
-	    return tokens.size(); 
+	public int getNumWords() {
+
+		List<String> tokens_words = getTokens("[a-zA-Z]+");
+	    return tokens_words.size();
 	}
 	
 	/**
@@ -52,11 +50,9 @@ public class BasicDocument extends Document
 	 * @return The number of sentences in the document.
 	 */
 	@Override
-	public int getNumSentences()
-	{
-	    
-        List<String> tokens = getTokens("[^?.!]+");
-        return tokens.size();
+	public int getNumSentences() {
+		List<String> tokens_sentences = getTokens("[^!?.]+");
+        return tokens_sentences.size();
 	}
 	
 	/**
@@ -74,24 +70,9 @@ public class BasicDocument extends Document
 	 * @return The number of syllables in the document.
 	 */
 	@Override
-	public int getNumSyllables()
-	{
-		// We provide for you two solutions: One that uses multiple 
-		// regexs to calculate the number of syllables and the other
-		// that finds words using a loop.  The regex solution is commented 
-		// out here at the top.
-
-		/* Our solution using regex's.  Uncoment here to run it*/
-		/*
-		List<String> tokens = getTokens("[aeiouyAEIOUY]+");
-		List<String> loneEs = getTokens("[^aeiouyAEIOUY]+[eE]\\b");
-		List<String> singleEs = getTokens("\\b[^aeiouyAEIOUY]*[eE]\\b");
-		
-		
-		return tokens.size() - (loneEs.size() - singleEs.size());
-		*/
-		
-		/* Our solution that does NOT use regexs to find syllables */
+	public int getNumSyllables() {
+		// Uses the helper function countSyllables in Document.java using a loop,
+		// and then call it here on each word.
 		List<String> tokens = getTokens("[a-zA-Z]+");
 		int totalSyllables = 0;
 		for (String word : tokens)
@@ -99,7 +80,6 @@ public class BasicDocument extends Document
 			totalSyllables += countSyllables(word);
 		}
 		return totalSyllables;
-		
 	}
 	
 	
@@ -113,12 +93,21 @@ public class BasicDocument extends Document
 		 * in the string, respectively.  You can use these examples to help clarify 
 		 * your understanding of how to count syllables, words, and sentences.
 		 */
+
+		double score;
+
 		testCase(new BasicDocument("This is a test.  How many???  "
 		        + "Senteeeeeeeeeences are here... there should be 5!  Right?"),
 				16, 13, 5);
+		score = new BasicDocument("This is a test.  How many???  Senteeeeeeeeeences are here... there should be 5!  Right?").getFleschScore();
+		System.out.println("FleschScore = " + score + " expected 100,07292307692307692307692307692");
+
 		testCase(new BasicDocument(""), 0, 0, 0);
 		testCase(new BasicDocument("sentence, with, lots, of, commas.!  "
 		        + "(And some poaren)).  The output is: 7.5."), 15, 11, 4);
+		score = new BasicDocument("sentence, with, lots, of, commas.! (And some poaren)).  The output is: 7.5.").getFleschScore();
+		System.out.println("FleschScore = " + score + " expected 88,680113636363636363636363636364");
+
 		testCase(new BasicDocument("many???  Senteeeeeeeeeences are"), 6, 3, 2);
 		testCase(new BasicDocument("Here is a series of test sentences. Your program should "
 				+ "find 3 sentences, 33 words, and 49 syllables. Not every word will have "
@@ -129,6 +118,32 @@ public class BasicDocument extends Document
 		testCase(new BasicDocument("Sentences?!"), 3, 1, 1);
 		testCase(new BasicDocument("Lorem ipsum dolor sit amet, qui ex choro quodsi moderatius, nam dolores explicari forensibus ad."),
 		         32, 15, 1);
+
+
+		int numSyllables;
+		int numWords;
+		int numSentences;
+		String sntc;
+		String w;
+
+		/*
+		w = "test";
+		//numSyllables = new BasicDocument("").countSyllables(w);
+		//System.out.println(w + " //=>// " + numSyllables + " Syllables");
+
+		numSyllables = new BasicDocument(w).getNumSyllables();
+		System.out.println(w + " //=>// " + numSyllables + " Syllables");
+
+		sntc = "This is a test.  How many???  Senteeeeeeeeeences are here... there should be 5!  Right?";
+		numSentences = new BasicDocument(sntc).getNumSentences();
+		numWords = new BasicDocument(sntc).getNumWords();
+
+		System.out.println(sntc + " //=>// " + numSentences + " Sentences; " + numWords + " words");
+		*/
+
+		//w = "one (1), two (2), three (3)";
+		//System.out.println(Arrays.toString(new BasicDocument(w).getTokens("[^, ]+").toArray()));
+
 	}
-	
+
 }

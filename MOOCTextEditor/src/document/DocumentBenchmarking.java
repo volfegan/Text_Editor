@@ -3,10 +3,6 @@ package document;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 
 /** A class for timing the EfficientDocument and BasicDocument classes
  * 
@@ -28,66 +24,74 @@ public class DocumentBenchmarking {
 		
 	    // The amount of characters to increment each step
 	    // You can play around with this
-		int increment = 20000;
+		int increment = 30000;
 
 		// The number of steps to run.  
 		// You can play around with this.
-		int numSteps = 20;
+		int numSteps = 100;
 		
 		// THe number of characters to start with. 
 		// You can play around with this.
 		int start = 50000;
 		
-		
+		// TODO: Fill in the rest of this method so that it runs two loops
+		// and prints out timing results as described in the assignment 
+		// instructions and following the pseudocode below.
+        System.out.println("Size \t\tBasicDocument \t\tEfficientDocument");
 		for (int numToCheck = start; numToCheck < numSteps*increment + start; 
-				numToCheck += increment)
-		{
-			// numToCheck holds the number of characters that you should read from the 
-			// file to create both a BasicDocument and an EfficientDocument.  
-			
-			/* Each time through this loop you should:
-			 * 1. Print out numToCheck followed by a tab (\t) (NOT a newline)
-			 * 2. Read numToCheck characters from the file into a String
-			 *     Hint: use the helper method below.
-			 * 3. Time a loop that runs trials times (trials is the variable above) that:
-			 *     a. Creates a BasicDocument 
-			 *     b. Calls fleshScore on this document
-			 * 4. Print out the time it took to complete the loop in step 3 
-			 *      (on the same line as the first print statement) followed by a tab (\t)
-			 * 5. Time a loop that runs trials times (trials is the variable above) that:
+				numToCheck += increment) {
+			// numToCheck holds the number of characters that you should read from the
+			// file to create both a BasicDocument and an EfficientDocument.
+
+			// 1. Print out numToCheck followed by a tab (\t) (NOT a newline)
+            System.out.print(numToCheck + " \t");
+
+			 // 2. Read numToCheck characters from the file into a
+            int numChars = numToCheck;
+            String bufferText = getStringFromFile(textfile, numChars);
+
+            /* 3. Time a loop that runs trials times (trials is the variable above) that:
+			 *  a. Creates a BasicDocument
+			 *  b. Calls fleshScore on this document*/
+            long startTime = 0;
+            long endTime = 0;
+            double duration = 0;
+            double fleschScore = 0;
+
+            //test many trials times
+            for (int trial = 0; trial < trials; trial++) {
+
+                startTime = System.nanoTime();
+                BasicDocument test1 = new BasicDocument(bufferText);
+                fleschScore = test1.getFleschScore();
+                endTime = System.nanoTime();
+                duration += (double)(endTime - startTime)/1000000000;
+            }
+
+			 /* 4. Print out the time it took to complete the loop in step 3
+			 *     (on the same line as the first print statement) followed by a tab (\t)*/
+            System.out.print(duration + " \t");
+
+			 /* 5. Time a loop that runs trials times (trials is the variable above) that:
 			 *     a. Creates an EfficientDocument 
-			 *     b. Calls fleshScore on this document
-			 * 6. Print out the time it took to complete the loop in step 5 
-			 *      (on the same line as the first print statement) followed by a newline (\n) 
-			 */  
-			 
-			
-			System.out.print(numToCheck + "\t");
+			 *     b. Calls fleshScore on this document*/
 
-			final String text = getStringFromFile(textfile, numToCheck);
+            for (int trial = 0; trial < trials; trial++) {
 
-			long elapsedTime = measureTime(trials, () -> new BasicDocument(text));
+                startTime = System.nanoTime();
+                EfficientDocument test2 = new EfficientDocument(bufferText);
+                fleschScore = test2.getFleschScore();
+                endTime = System.nanoTime();
+                duration = (double)(endTime - startTime)/1000000000;
+            }
 
-			System.out.print(elapsedTime + "\t");
-			
-			elapsedTime = measureTime(trials, () -> new EfficientDocument(text));
-			
-			System.out.print(elapsedTime + "\n");
+			 /* 6. Print out the time it took to complete the loop in step 5
+			 *      (on the same line as the first print statement) followed by a newline (\n)*/
+            System.out.print(duration + " \n");
+            //System.out.println();
 		}
-	
+		//end of benchmark
 	}
-	
-	private static long measureTime(int trials, Supplier<Document> doc) {
-		long elapsedTime = System.nanoTime();
-		
-		for (int i = 0; i < trials; ++i) {
-			doc.get().getFleschScore();
-		}
-		elapsedTime = System.nanoTime() - elapsedTime;
-
-		return TimeUnit.MILLISECONDS.convert(elapsedTime, TimeUnit.NANOSECONDS);
-	}
-
 	
 	/** Get a specified number of characters from a text file
 	 * 
@@ -118,11 +122,8 @@ public class DocumentBenchmarking {
 		  System.out.println(e);
 		  System.exit(0);
 		}
-		
-		
+
 		return s.toString();
 	}
-	
-
 	
 }

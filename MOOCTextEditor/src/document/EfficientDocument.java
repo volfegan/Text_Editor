@@ -26,10 +26,10 @@ public class EfficientDocument extends Document {
 	 * Take a string that either contains only alphabetic characters,
 	 * or only sentence-ending punctuation.  Return true if the string
 	 * contains only alphabetic characters, and false if it contains
-	 * end of sentence punctuation.  
-	 * 
+	 * end of sentence punctuation.
+	 *
 	 * @param tok The string to check
-	 * @return true if tok is a word, false if it is punctuation. 
+	 * @return true if tok is a word (contains only alphabetical characters), false if it is punctuation.
 	 */
 	private boolean isWord(String tok)
 	{
@@ -46,26 +46,28 @@ public class EfficientDocument extends Document {
 	private void processText()
 	{
 		// Call getTokens on the text to preserve separate strings that are 
-		// either words or sentence-ending punctuation.  Ignore everything
-		// That is not a word or a sentence-ending puctuation.
+		// either words or sentence-ending punctuation. Ignore everything
+		// that is not a word or a sentence-ending puctuation.
 		// MAKE SURE YOU UNDERSTAND THIS LINE BEFORE YOU CODE THE REST
 		// OF THIS METHOD.
 		List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+");
-		
-		for (String token : tokens) {
-		      if (isWord(token)) {
-		        numWords += 1;
-		        numSyllables += countSyllables(token);
-		      } else {
-		        numSentences += 1;
-		      }
-		    }
-		    // if tokens is not empty AND last token is a word , count it as a sentence
-		    int L = tokens.size();
-		    if (L > 0 && isWord(tokens.get(L - 1))) {
-		      numSentences += 1;
-		    }
-		
+
+		this.numWords = 0;
+		this.numSyllables = 0;
+		this.numSentences = 0;
+
+		for (int i=0; i < tokens.size(); i++ ) {
+			if (i == 0) this.numSentences++;
+
+			String token = tokens.get(i);
+
+			if (isWord(token)) {
+				this.numWords++;
+				this.numSyllables += countSyllables(token);
+			}
+			//count sentences from token words with punctuation marks but not the last (already counted at 0)
+			if (!isWord(token) && i < tokens.size()-1) this.numSentences++;
+		}
 	}
 
 	
@@ -84,7 +86,7 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSentences() {
-		return numSentences;
+		return this.numSentences;
 	}
 
 	
@@ -104,7 +106,7 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumWords() {
-	    return numWords;
+	    return this.numWords;
 	}
 
 
@@ -125,7 +127,7 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSyllables() {
-        return numSyllables; 
+        return this.numSyllables;
 	}
 	
 	// Can be used for testing
@@ -153,6 +155,3 @@ public class EfficientDocument extends Document {
 	
 
 }
-
-
-
