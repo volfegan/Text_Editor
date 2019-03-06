@@ -14,7 +14,7 @@ If you are doing the course and want to use this as a reference, and if you like
       (. .)  __ / I am pretty confident
        =w= (\   \ my code for the linkedList
       / ^ \//    \ and Markov text generator
-     (|| ||)      \ are the best of everyone else
+     (|| ||)      \ are the best than everyone else
      ,""_""_ .     \ I did the course together.
                      ---- ---- ---- ---- ---- ----
 
