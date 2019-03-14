@@ -1,0 +1,13 @@
+
+Week 2 : Efficiency Analysis and Benchmarking
+=============================================
+document.Document.java
+document.BasicDocument.java
+document.EfficientDocument.java
+
+This graph just show the difference of speed efficiency of a text (warAndPeace.txt) been analyzing its Flesch readability score using document.EfficientDocument.java vs document.BasicDocument.java.
+
+![efficiency comparison](chart.png)
+Time processing(second) VS Number of words input
+
+Both are linear, O(n), but document.Document.java performance is so much worst than document.EfficientDocument.java that we barely can see the later increasing with the size of text input.
