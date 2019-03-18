@@ -10,7 +10,7 @@ import org.junit.Test;
 
 
 /**
- * @author UC San Diego MOOC team & Volfegan
+ * @author UC San Diego MOOC team & Volfegan [Daniel L Lacerda]
  *
  */
 public class MyLinkedListTester {

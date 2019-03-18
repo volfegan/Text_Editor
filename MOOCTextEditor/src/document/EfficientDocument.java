@@ -7,7 +7,7 @@ import java.util.List;
  * It does one pass through the document to count the number of syllables, words, 
  * and sentences and then stores those values.
  * 
- * @author UC San Diego Intermediate Programming MOOC team & Volfegan
+ * @author UC San Diego Intermediate Programming MOOC team & Volfegan [Daniel L Lacerda]
  */
 public class EfficientDocument extends Document {
 

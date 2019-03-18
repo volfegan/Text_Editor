@@ -1,0 +1,21 @@
+
+Week 4 : Trees! (including Binary Search Trees and Tries)
+=========================================================
+spelling.SpellingSuggest.java
+spelling.AutoComplete.java
+spelling.Dictionary.java
+spelling.Dictionary*.java
+spelling.AutoCompleteDictionaryTrie.java
+spelling.TrieNode.java
+
+This graph just show the difference of speed efficiency of searching a non existing word in a dictionary built with Linked List - DictionaryLL.java vs Binary Search Trees - DictionaryBST.java. 100 points were used.
+
+![Linked List dict efficiency](Linked List dict.png)
+Time processing(second) VS Number of words in dict
+
+Linked List dict is fairly linear, O(n). Its performance is so much worst than Binary Search Trees - DictionaryBST.java that I could not put in the same graph as the Binary Search Trees is dwarfed.
+
+The Binary Search Trees dict is suppose to have O(log(n)) efficiency, but the graph shows a somewhat stable O(1) performance. The noise is probably bigger than the grow O(log(n)) of accessing the data, so it looks flat, but it is actually growing very slow. A bigger dictionary would conclude if this is the case.
+
+![Linked List dict efficiency](BST dict.png)
+Time processing(second) VS Number of words in dict

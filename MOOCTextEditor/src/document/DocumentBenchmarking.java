@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 /** A class for timing the EfficientDocument and BasicDocument classes
  * 
- * @author UC San Diego Intermediate Programming MOOC team & Volfegan
+ * @author UC San Diego Intermediate Programming MOOC team & Volfegan [Daniel L Lacerda]
  *
  */
 

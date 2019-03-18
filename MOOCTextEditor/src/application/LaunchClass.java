@@ -25,13 +25,15 @@ public class LaunchClass {
 	}
 	
     public spelling.AutoComplete getAutoComplete() {
-        spelling.AutoCompleteDictionaryTrie tr = new spelling.AutoCompleteDictionaryTrie();
+		//spelling.AutoCompleteDictionaryTrie tr = new spelling.AutoCompleteDictionaryTrie();
+		spelling.AutoCompleteMatchCase tr = new spelling.AutoCompleteMatchCase(); //testing words for Match case
         spelling.DictionaryLoader.loadDictionary(tr, dictFile);
         return tr;
     }
     
     public spelling.Dictionary getDictionary() {
-        spelling.Dictionary d = new spelling.DictionaryBST();
+		//spelling.Dictionary d = new spelling.DictionaryBST();
+		spelling.Dictionary d = new spelling.DictionaryHashSetMatchCase(); //testing words for Match case
         spelling.DictionaryLoader.loadDictionary(d, dictFile);
     	return d;
     }
