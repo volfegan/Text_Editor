@@ -20,3 +20,5 @@ If you are doing the course and want to use this as a reference, and if you like
 
 The course compresses in a refresh of Strings methods, some efficiency Analysis and Benchmarking (BigO), Interfaces, Linked Lists vs. Arrays, a basic Markov Text Generator, Trees (including Binary Search Trees and Tries for simple autocomplete and spelling), Hash Maps and Distance of words space.
 The most important aspect of this course is helping on how to accommodate and separate parts of code and an intro to unit testing by JUNIT. At least in this project you feel that you make something by yourself unlike the previous course (that uses UnfoldingMap).
+
+If you want to try this piece of garbage to see how much effort someone can put and the result is just heh, download both the jar file with the data folder (dictionary for spelling corrections). So much effort for this. Am I proud of me for this? No. But this is a beginning.
